@@ -1,16 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/operations';
-import { selectVisibleContacts } from 'redux/selector';
+import { deleteContact } from 'redux/contacts/operations';
+import { selectVisibleContacts } from 'redux/contacts/selector';
 import {
   List,
   ItemContact,
   InfoContact,
   BtnDelContact,
 } from './ContactList.styled';
-
-// const inAlphabeticalOrder = students.sort((firstStudent, secondStudent) =>
-//   firstStudent.name.localeCompare(secondStudent.name)
-// );
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -23,7 +19,7 @@ export const ContactList = () => {
           return (
             <ItemContact key={item.id}>
               <InfoContact>
-                {item.name}: {item.phone}
+                {item.name}: {item.number}
               </InfoContact>
               <BtnDelContact
                 type="button"
@@ -38,4 +34,3 @@ export const ContactList = () => {
     </>
   );
 };
-

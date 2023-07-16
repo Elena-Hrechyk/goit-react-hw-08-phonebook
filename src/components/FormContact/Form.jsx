@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from 'redux/operations';
-import { selectContacts } from 'redux/selector';
+import { addContacts } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/contacts/selector';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Forma, Lable, Input, BtnAddContact } from './Form.styled';
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  phone: yup.string().required(),
+  number: yup.string().required(),
 });
 
 const initialValues = {
   name: '',
-  phone: '',
+  number: '',
 };
 
 export const FormContact = () => {
@@ -33,7 +33,7 @@ export const FormContact = () => {
     dispatch(
       addContacts({
         name: values.name.trim(),
-        phone: values.phone.trim(),
+        number: values.number.trim(),
       })
     );
     resetForm();
@@ -48,26 +48,11 @@ export const FormContact = () => {
       <Forma>
         <Lable>
           Name
-          <Input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            placeholder="Adrian"
-            autoFocus
-            required
-          />
+          <Input type="text" name="name" placeholder="Adrian" autoFocus />
         </Lable>
         <Lable>
           Number
-          <Input
-            type="tel"
-            name="phone"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            placeholder="380671234567"
-            required
-          />
+          <Input type="tel" name="number" placeholder="380671234567" />
         </Lable>
         <BtnAddContact type="submit">Add contact</BtnAddContact>
       </Forma>
