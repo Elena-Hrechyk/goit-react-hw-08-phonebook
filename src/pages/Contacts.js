@@ -37,15 +37,20 @@ const Contacts = () => {
           <Container>
             <Title>Phonebook</Title>
             <FormContact />
-            {loading && !error && <Loader />}
-            {contacts.length > 0 ? (
-              <>
-                <TextTitle>Contacts</TextTitle>
-                <Filter />
-                <ContactList />
-              </>
+            {loading && !error ? (
+              <Loader />
             ) : (
-              <TextTitle>No saved contacts</TextTitle>
+              <>
+                {contacts.length > 0 ? (
+                  <>
+                    <TextTitle>Contacts</TextTitle>
+                    <Filter />
+                    <ContactList />
+                  </>
+                ) : (
+                  <TextTitle>No saved contacts</TextTitle>
+                )}
+              </>
             )}
             {error && <ErroTitle>{error}</ErroTitle>}
           </Container>
