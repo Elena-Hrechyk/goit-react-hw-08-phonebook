@@ -1,31 +1,56 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
-import AppBar from './AppBar/AppBar';
-import Home from 'pages/Home';
-import UserReg from 'pages/UserReg';
-import UserLogin from 'pages/UserLogin';
-import NotFound from 'pages/NotFound';
-import Contacts from 'pages/Contacts';
+import { useEffect, Suspense, lazy } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 import { fetchCurrentUser } from 'redux/auth/operations-auth';
+import AppBar from './AppBar/AppBar';
+import { Loader } from './Loader/Loader';
+import { selectIsUpdating } from 'redux/auth/authSelectors';
+
+const Home = lazy(() => import('pages/Home'));
+const Contacts = lazy(() => import('pages/Contacts'));
+const UserReg = lazy(() => import('pages/UserReg'));
+const UserLogin = lazy(() => import('pages/UserLogin'));
+const NotFound = lazy(() => import('pages/NotFound'));
 
 export const App = () => {
   const dispatch = useDispatch();
+  const isUpdatind = useSelector(selectIsUpdating);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   return (
-    <div>
-      <AppBar />
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/registration" element={<UserReg />}></Route>
-        <Route path="/login" element={<UserLogin />}></Route>
-        <Route path="/contacts" element={<Contacts />}></Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    <>
+      {!isUpdatind && (
+        <div>
+          <AppBar />
+          <Suspense fallback={<Loader />}>
+            <Switch>
+              <PublicRoute exact path="/">
+                <Home />
+              </PublicRoute>
+              <PublicRoute exact path="/registration" restricted>
+                <UserReg />
+              </PublicRoute>
+              <PublicRoute
+                exact
+                path="/login"
+                redirectTo="/contacts"
+                restricted
+              >
+                <UserLogin />
+              </PublicRoute>
+              <PrivateRoute path="/contacts" redirectTo="/login">
+                <Contacts />
+              </PrivateRoute>
+              <Route path="*" element={<NotFound />} />
+            </Switch>
+          </Suspense>
+        </div>
+      )}
+    </>
   );
 };

@@ -14,8 +14,10 @@ export const NavLinkAuth = styled(NavLink)`
   font-weight: 700;
   margin-right: 16px;
   transition: color 250ms linear;
+  color: black;
   &.active {
     color: #4468df;
+    border-bottom: 2px solid #4468df;
   }
   &:hover,
   &:focus {

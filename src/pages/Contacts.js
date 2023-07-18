@@ -10,8 +10,13 @@ import { FormContact } from 'components/FormContact/Form';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactsList/ContactList';
 import { Loader } from 'components/Loader/Loader';
-import { Title, TextTitle, ErroTitle } from 'components/App.styled';
-import { Container } from 'components/AppBar/AppBar.styled';
+import {
+  Section,
+  Container,
+  Title,
+  TextTitle,
+  ErroTitle,
+} from 'components/App.styled';
 import { selectIsLogin } from 'redux/auth/authSelectors';
 
 const Contacts = () => {
@@ -27,8 +32,8 @@ const Contacts = () => {
 
   return (
     <>
-      {isLogin ? (
-        <section>
+      {isLogin && (
+        <Section>
           <Container>
             <Title>Phonebook</Title>
             <FormContact />
@@ -44,13 +49,7 @@ const Contacts = () => {
             )}
             {error && <ErroTitle>{error}</ErroTitle>}
           </Container>
-        </section>
-      ) : (
-        <section>
-          <Container>
-            <Title>Please, login</Title>
-          </Container>
-        </section>
+        </Section>
       )}
     </>
   );

@@ -4,6 +4,7 @@ import { selectIsLogin } from 'redux/auth/authSelectors';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Forma, Lable, Input, BtnAddContact } from './UserAuth.styled';
+import { Section, Container } from 'components/App.styled';
 
 const schema = yup.object().shape({
   email: yup.string().nullable().email().required(),
@@ -37,23 +38,31 @@ const UserLogin = () => {
   return (
     <>
       {!isLogin && (
-        <Formik
-          initialValues={initialValues}
-          validationSchema={schema}
-          onSubmit={handleLogin}
-        >
-          <Forma>
-            <Lable>
-              Number
-              <Input type="email" name="email" placeholder="example@mail.com" />
-            </Lable>
-            <Lable>
-              Password
-              <Input type="password" name="password" />
-            </Lable>
-            <BtnAddContact type="submit">Login</BtnAddContact>
-          </Forma>
-        </Formik>
+        <Section>
+          <Container>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={schema}
+              onSubmit={handleLogin}
+            >
+              <Forma>
+                <Lable>
+                  Number
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="example@mail.com"
+                  />
+                </Lable>
+                <Lable>
+                  Password
+                  <Input type="password" name="password" />
+                </Lable>
+                <BtnAddContact type="submit">Login</BtnAddContact>
+              </Forma>
+            </Formik>
+          </Container>
+        </Section>
       )}
     </>
   );

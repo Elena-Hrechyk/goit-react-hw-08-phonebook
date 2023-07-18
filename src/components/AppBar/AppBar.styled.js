@@ -8,14 +8,10 @@ export const Header = styled.header`
   border-bottom: 2px solid darkgray;
 `;
 
-export const Container = styled.div`
-  max-width: 1024px;
-  margin: 0 auto;
-  padding-left: 30px;
-  padding-right: 30px;
-`;
+
 
 export const NavMenu = styled.nav`
+  min-height: 32px;
   display: flex;
   align-items: center;
 `;
@@ -26,8 +22,10 @@ export const NavLinks = styled(NavLink)`
   font-weight: 700;
   margin-right: 16px;
   transition: color 250ms linear;
+  color: black;
   &.active {
     color: #4468df;
+    border-bottom: 2px solid #4468df;
   }
   &:hover,
   &:focus {

@@ -5,7 +5,8 @@ export const BoxFilter = styled.form`
   padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 40px;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid rgba(161, 165, 161, 0.397);
   border-radius: 8px;
 `;

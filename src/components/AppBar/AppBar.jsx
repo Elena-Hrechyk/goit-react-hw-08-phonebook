@@ -2,18 +2,26 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import UserAuthLog from 'components/UserAuthLog/UserAuthLog';
 import UserMenu from 'components/UserMenu/UserMenu';
-import { selectIsLogin } from 'redux/auth/authSelectors';
-import { Header, Container, NavMenu, NavLinks } from './AppBar.styled';
+import { selectIsLogin, selectIsUpdating } from 'redux/auth/authSelectors';
+import { Header, NavMenu, NavLinks } from './AppBar.styled';
+import { Container } from 'components/App.styled';
 
 const AppBar = () => {
   const isLogin = useSelector(selectIsLogin);
+  const isUpdating = useSelector(selectIsUpdating);
   return (
     <Header>
       <Container>
         <NavMenu>
-          <NavLinks to="/">Home</NavLinks>
-          <NavLinks to="/contacts">Contacts</NavLinks>
-          {isLogin ? <UserMenu /> : <UserAuthLog />}
+          <NavLinks exact to="/">
+            Home
+          </NavLinks>
+          {isLogin && (
+            <NavLinks exact to="/contacts">
+              Contacts
+            </NavLinks>
+          )}
+          {isLogin && !isUpdating ? <UserMenu /> : <UserAuthLog />}
         </NavMenu>
       </Container>
     </Header>
