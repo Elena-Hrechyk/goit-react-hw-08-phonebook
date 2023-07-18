@@ -1,9 +1,11 @@
+import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from 'redux/contacts/operations';
 import { selectContacts } from 'redux/contacts/selector';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Forma, Lable, Input, BtnAddContact } from './Form.styled';
+import { Forma, Lable, Input } from './Form.styled';
+import Button from '@mui/material/Button';
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -54,7 +56,9 @@ export const FormContact = () => {
           Number
           <Input type="tel" name="number" placeholder="380671234567" />
         </Lable>
-        <BtnAddContact type="submit">Add contact</BtnAddContact>
+        <Button variant="contained" type="submit">
+          Add contact
+        </Button>
       </Forma>
     </Formik>
   );
